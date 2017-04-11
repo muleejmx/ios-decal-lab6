@@ -16,6 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         // TODO: set the LoginViewController to be the initial view controller of the app (see Lecture slides for help)
+        
+        let loginControl = LoginViewController()
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = loginControl
+        window?.makeKeyAndVisible()
 
         return true
     }

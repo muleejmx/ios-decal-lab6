@@ -19,19 +19,84 @@ class LoginViewController: UIViewController {
 
     // TODO: instantiate the views needed for your project
     
+    var login: UIButton!
+    var email: UITextField!
+    var password: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Constants.backgroundColor
         
         // TODO: Add your views either as subviews of `view` or subviews of each other using `addSubview`
         
+        // Login View Bounds
+        
+        let loginView = UIView(frame: CGRect(x: 10, y: 300, width: UIScreen.main.bounds.width-20, height: 200))
+        loginView.backgroundColor = UIColor.clear
+        loginView.layer.cornerRadius = 20
+        loginView.layer.borderWidth = 1
+        
+        
+        // Login View Label
+        
+        let titleBlock = CGRect(x: 10, y: 80, width: UIScreen.main.bounds.width - 16, height: 200)
+        let label = UILabel(frame: titleBlock)
+        label.text = "Login View Controller"
+        label.textAlignment = .center
+        label.font = UIFont(name: "HelveticaNeue-UltraLight", size: 50)
+        label.textColor = UIColor.black
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.numberOfLines = 2
+        
+        // Email Label
+        
+        email = UITextField(frame: CGRect(x: 15, y: 10, width: UIScreen.main.bounds.width - 50, height: 50))
+        email.text = "   berkeley.edu account"
+        email.textColor = UIColor.black
+        email.backgroundColor = UIColor.clear
+        email.layer.borderWidth = 1
+        email.layer.cornerRadius = 20
+        email.font = UIFont(name: "HelveticaNeue-UltraLight", size: 20)
+
+        
+        // Password Label
+        
+        password = UITextField(frame: CGRect(x: 15, y: 70, width: UIScreen.main.bounds.width - 50, height: 50))
+        password.text = "   password"
+        password.textColor = UIColor.black
+        password.backgroundColor = UIColor.clear
+        password.layer.borderWidth = 1
+        password.layer.cornerRadius = 20
+        password.font = UIFont(name: "HelveticaNeue-UltraLight", size: 20)
+
+        
+        // Login Button
+        
+        login = UIButton(frame:CGRect(x: 90, y: 130, width: UIScreen.main.bounds.width - 200, height: 50))
+        login.setTitle("Login", for: .normal)
+        login.backgroundColor = UIColor.clear
+        login.setTitleColor(UIColor.black, for: .normal)
+        login.layer.borderWidth = 1
+        login.addTarget(self, action: #selector(loginAction), for: .touchDown)
+        login.layer.cornerRadius = 20
+        login.titleLabel!.font =  UIFont(name: "HelveticaNeue-UltraLight", size: 20)
+
+        
         // TODO: layout your views using frames or AutoLayout
+        
+        loginView.addSubview(email)
+        loginView.addSubview(password)
+        loginView.addSubview(login)
+
+        self.view.addSubview(label)
+        self.view.addSubview(loginView)
     }
     
     // TODO: create an IBAction for your login button
     
-    
-    
+    @IBAction func loginAction(sender: UIButton) {
+        authenticateUser(username: email.text, password: password.text)
+    }
     
     
     /// YOU DO NOT NEED TO MODIFY ANY OF THE CODE BELOW (but you will want to use `authenticateUser` at some point)
@@ -79,3 +144,20 @@ class LoginViewController: UIViewController {
         }
     }
 }
+
+// EXTRA; change color when entering in text
+
+func textViewDidBeginEditing (_ textView: UITextView) {
+    if textView.textColor == UIColor.black {
+        textView.text = nil
+        textView.textColor = UIColor.yellow
+    }
+}
+
+func textViewDidEndEditing(_ textView: UITextView) {
+    if textView.text.isEmpty {
+        textView.text = "   berkeley.edu account"
+        textView.textColor = UIColor.yellow
+    }
+}
+
